@@ -1,9 +1,13 @@
+import markdown
+
 from django import template
 from django.db.models import Count
+from django.utils.safestring import mark_safe
+
+from ..models import Post
 
 register = template.Library()
 
-from ..models import Post
 
 @register.simple_tag
 def total_posts():

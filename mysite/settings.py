@@ -38,6 +38,10 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # Sitemap
+    'django.contrib.sites',
+    'django.contrib.sitemaps',
+
     # Third-party apps
     'taggit',
 
@@ -114,3 +118,6 @@ EMAIL_HOST_USER = 'munkyu0813@gmail.com'
 EMAIL_HOST_PASSWORD = 'gkr95jgkr95j'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
+# Sitemaps setting
+SITE_ID = 2
