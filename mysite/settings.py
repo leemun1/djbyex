@@ -44,6 +44,7 @@ INSTALLED_APPS = (
 
     # Third-party apps
     'taggit',
+    'haystack',
 
     # My apps
     'blog',
@@ -121,3 +122,11 @@ EMAIL_USE_TLS = True
 
 # Sitemaps setting
 SITE_ID = 2
+
+# Haystack settings
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
+        'URL': 'http://127.0.0.1:8983/solr/blog'
+    },
+}

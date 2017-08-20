@@ -5,9 +5,10 @@ from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView
 
 from taggit.models import Tag
+from haystack.query import SearchQuerySet
 
 from .models import Post, Comment
-from .forms import EmailPostForm, CommentForm
+from .forms import EmailPostForm, CommentForm, SearchForm
 
 
 def post_list(request, tag_slug=None):
@@ -113,4 +114,22 @@ def post_share(request, post_id):
         'sent': sent,
     }
     return render(request, 'blog/post/share.html', context)
-            
+
+def post_search(request):
+    form = SearchForm()
+    context = {'form': form}
+
+    if 'query' in request.GET:
+        form = SearchForm(request.GET)
+        if form.is_valid():
+            cd = form.cleaned_data
+            results = SearchQuerySet().models(Post)\
+                          .filter(content=cd['query']).load_all()
+            # count total results
+            total_results = results.count()
+
+            context['cd'] = cd
+            context['results'] = results
+            context['total_results'] = total_results
+
+    return render(request, 'blog/post/search.html', context)
